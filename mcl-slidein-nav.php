@@ -66,15 +66,13 @@ add_action( 'admin_menu', 'mcl_slidein_nav_add_admin_menu' );
 /* -----------------------------------------------------------
 	管理画面 CSS ファイル読み込み 
 ----------------------------------------------------------- */
-/*
-function mcl_slidein_nav_admin($hook) {
-    if ( 'settings_page_mcl_slidein_nav' != $hook ) {
+function mcl_slidein_nav_admin_css($hook) {
+    if ( 'settings_page_mcl-slidein-nav' != $hook ) {
         return;
     }
-    wp_enqueue_style( 'mcl_head_clean_style', plugin_dir_url( __FILE__ ) . 'css/mcl-admin-style.css' );
+    wp_enqueue_style( 'mcl-admin-style', plugin_dir_url( __FILE__ ) . 'css/mcl-admin-style.css' );
 }
-add_action( 'admin_enqueue_scripts', 'mcl_slidein_nav_admin' );
-*/
+add_action( 'admin_enqueue_scripts', 'mcl_slidein_nav_admin_css' );
 /* -----------------------------------------------------------
 	アンインストール時のオプションデータ削除 
 ----------------------------------------------------------- */
@@ -103,9 +101,11 @@ add_action( 'admin_init', 'mcl_slidein_nav_option_init' );
 function mcl_slidein_nav_default_options() {
 	$default_options = array(
 		'name'      => '',
-		'cnt_width' => 768,
+		'show_width' => 0,
 		'position'  => 'left',
-		'bg_color'  => '#666666',
+		'nav_color'  => 'white',
+		'position_top' => 40,
+		'position_side' => 40,
 	);
 }
 
@@ -119,10 +119,7 @@ function get_mcl_slidein_nav_options() {
 function mcl_slidein_nav_admin(){ 
 	
 	$options = get_mcl_slidein_nav_options();
-	
-	//var_dump($menu);
-	var_dump( $options );
-	
+		
 	if ( !current_user_can( 'manage_options' ) )  {    
         wp_die( __( 'You do not have sufficient permissions to access this page.' ) );    
     } 
@@ -132,23 +129,24 @@ function mcl_slidein_nav_admin(){
 	
 	<div class="postbox">
 		<form method="post" action="options.php">
-		<?php 
+		<?php 			
 	    settings_fields( 'mcl_slidein_nav_group' );
 	    do_settings_sections( 'mcl_slidein_nav_group' );
-	    ?>	    
-	    
+	    ?>	   
+	     
 	    <table class="form-table">
         <tbody>
+
+	    <?php // select menu ------------------------- ?>
           <tr>
             <th scope="row">
-              <label for="name">select menu</label>
+              <label for="name">Choose menu</label>
             </th>
             <td>
-	            
 	            <select id="name" name="mcl_slidein_nav_options[name]" > 
              	<?php 
 	            $menus = get_terms( 'nav_menu', array( 'hide_empty' => false ) );				
-				if( isset( $menus ) ):
+				if( !empty( $menus ) ):
 					foreach ( $menus as $menu ) : 					
 					$option_name = $menu -> name;
 				?>	            
@@ -160,13 +158,28 @@ function mcl_slidein_nav_admin(){
 				<?php 
 					endforeach;
 				endif; ?>
-				</select>
+				</select><br>
+				<p>Choose what you want to display menus.</p>
+	        </td>
+          </tr>
+
+		<?php // display window width ------------------------- ?>                    
+          <tr>
+            <th scope="row">
+            	<label for="show_width">Button's display window width</label>
+            </th>
+            <td>
+	        	<input type="text" id="show_width" name="mcl_slidein_nav_options[show_width]" value="<?php if( !empty($options['show_width']) || $options['show_width'] == 0 ){ echo esc_attr( $options['show_width'] ); } ?>"/> px<br>
+	        	<p>Nav button is response displayed in window width.<br>
+		        	If you always want to display, Nothing input or input to “0”.
+	        	</p>
 	        </td>
           </tr>
           
-          <tr>
+          <?php // Nav slide in position ------------------------- ?>
+		  <tr>
             <th scope="row">
-            	<label for="position">nav position</label>
+            	<label for="position">Nav position</label>
             </th>
             <td>
 	        	<select id="position" name="mcl_slidein_nav_options[position]" > 
@@ -183,18 +196,60 @@ function mcl_slidein_nav_admin(){
 	            <?php 
 					endforeach;
 				endif; ?>	
-	        	</select>
+	        	</select><br>
+	        	<p>Select the position to display the menu.</p>
 	        </td>
           </tr>
           
-          <tr>
+          <?php // Nav color ------------------------- ?>
+           <tr>
             <th scope="row">
-            	<label for="cont_width">content width</label>
+            	<label for="position">Nav theme color</label>
             </th>
             <td>
-	        	<input type="text" id="cont_width" name="mcl_slidein_nav_options[cont_width]" value="<?php echo esc_attr( $options['cont_width'] ); ?>"/> px
+	        	<select id="position" name="mcl_slidein_nav_options[nav_color]" > 
+	            <?php 
+	            $nav_colors = array( 'white', 'dark');				
+				if( isset( $nav_colors ) ):
+					foreach ( $nav_colors as $nav_color ) : 					
+				?>	
+	            	<option value="<?php echo esc_attr( $nav_color ); ?>"
+	            	<?php if( $nav_color == $options['nav_color'] ){ echo 'selected'; } ?>>
+	            	<?php echo esc_attr( $nav_color ); ?>
+	            	</option>
+	            
+	            <?php 
+					endforeach;
+				endif; ?>	
+	        	</select><br>
+	        	<p>Select the menu theme color, white or dark.</p>
 	        </td>
           </tr>
+          
+		  <?php // Nav botton position top ------------------------- ?>
+	        <tr>
+            <th scope="row">
+            	<label for="position_top">Nav button position top</label>
+            </th>
+            <td>
+	        	<input type="text" id="position_top" name="mcl_slidein_nav_options[position_top]" value="<?php if( !empty($options['position_top']) ){ echo esc_attr( $options['position_top'] ); } ?>"/> px<br>
+	        	<p>Input of Nav button's position from window top.
+	        	</p>
+	        </td>
+          </tr>
+
+			<?php // Nav botton position top ------------------------- ?>          
+          <tr>
+            <th scope="row">
+            	<label for="position_side">Nav button position side</label>
+            </th>
+            <td>
+	        	<input type="text" id="position_side" name="mcl_slidein_nav_options[position_side]" value="<?php if( !empty($options['position_side']) ){ echo esc_attr( $options['position_side'] ); } ?>"/> px<br>
+	        	<p>Input of Nav button's position from window side.
+	        	</p>
+	        </td>
+          </tr>
+                    
           
         </tbody>
       </table>
@@ -211,14 +266,22 @@ function mcl_slidein_nav_admin(){
 ----------------------------------------------------------- */
 add_action( 'wp_enqueue_scripts', 'mcl_slidein_nav_scripts' );
 function mcl_slidein_nav_scripts(){
-	
-	wp_enqueue_style( 'mcl_slidein_nav_css' , plugins_url('css/mcl-slidein-nav.css', __FILE__) );
-	wp_enqueue_script('mcl_slidein_nav_js', plugins_url( '/js/mcl-slidein-nav.js', __FILE__ ), array( 'jquery' ));
-	
 	$options = get_mcl_slidein_nav_options();
+	
+	
+	if( $options['nav_color'] === 'white' ){
+		wp_enqueue_style( 'mcl_nav_white' , plugins_url('css/white-style.css', __FILE__) );
+	} else {
+		wp_enqueue_style( 'mcl_nav_dark' , plugins_url('css/dark-style.css', __FILE__) );
+	}
+	
+	wp_enqueue_script('mcl_slidein_nav_js', plugins_url( '/js/function.js', __FILE__ ), array( 'jquery' ));	
 	$mcl_nav_options = array(
 		'position' => $options['position'],
+		'position_top' => $options['position_top'],
+		'position_side' => $options['position_side'],
 	);
+	
 	wp_localize_script( 'mcl_slidein_nav_js', 'mcl_slidein_nav', $mcl_nav_options );
 } 
 
@@ -230,16 +293,25 @@ add_action('wp_head', 'mcl_slidein_nav_style');
 function mcl_slidein_nav_style(){ 
 
 	$options = get_mcl_slidein_nav_options();
-	if( !empty( $options['name'] ) ){ ?>
+	if( !empty( $options['name'] ) ): ?>
 		<style type="text/css" >
-			@media only screen and (min-width: <?php echo $options["cont_width"] ?>px) {
+			.mcl_nav_btn{
+				<?php 
+					echo esc_html( $options['position'] ).':'.esc_html( $options['position_side'] ).'px;';
+					echo 'top:'.esc_html( $options['position_top'] ).'px;'.PHP_EOL;
+				?>
+			}
+			
+			<?php if( isset( $options["show_width"] ) ): ?>
+			@media only screen and (min-width: <?php echo esc_html( $options["show_width"] ); ?>px) {
 				.mcl_nav_btn{
 					display: none;
 				}
 			}	
+			<?php endif; ?>
 		</style>
 	<?php 
-	} 
+	endif; 
 } 
 
 /* -----------------------------------------------------------
@@ -253,7 +325,7 @@ function mcl_slidein_nav_func(){
 				
 		<div id="mcl_slidein_nav" class="mcl_nav_wrap <?php echo $options['position'] ?>">
 		<button id="mcl_slidein_nav_btn" class="mcl_nav_btn">
-			×
+			<span class="btn_border"></span>
 		</button>
 		<ul id="mcl_slidein_nav_list" class="mcl_nav_list">
 			<?php wp_nav_menu( 

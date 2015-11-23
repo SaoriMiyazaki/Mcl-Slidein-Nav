@@ -1,0 +1,40 @@
+@charset "utf-8";
+@import "compass";
+@import "_style.scss";
+
+.mcl_nav_btn{
+	border: solid 1px #333;
+	background-color: #fff;
+	.btn_border{
+		background: #333;
+		&:before, &:after{
+			background: #333;
+		}
+	}
+}
+
+/*----------------------------------------
+	nav list style 
+/*-------------------------------------- */
+.mcl_nav_list{
+    background: #fff;
+    box-shadow: 1px 0 40px rgba(000, 000, 000, 0.2);
+    a{
+	    color: #333;
+    }
+    & > li + li{
+		border-top: solid 1px #eee;  
+    }
+    .sub-menu{
+	    & > li{
+			border-top: solid 1px #eee;
+	    }
+    }
+}
+
+/*----------------------------------------
+	layer style 
+/*-------------------------------------- */
+.mcl_nav_layer{
+	background-color: #000;
+}
