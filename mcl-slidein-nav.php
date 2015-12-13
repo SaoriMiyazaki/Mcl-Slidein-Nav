@@ -5,7 +5,7 @@ Plugin URI: http://memocarilog.info/
 Description: This Plugin will make with Custom menu Slidein nav 
 Text Domain: mcl-slidein-nav
 Domain Path: /languages
-Version: 0.1
+Version: 1.0.0
 Author: Saori Miyazaki
 Author URI: http://memocarilog.info/
 License: GPL2
@@ -38,14 +38,14 @@ function mcl_slidein_nav_action_links( $links, $file ) {
 	}
 	return $links;
 }
-add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'mcl_slidein_nav_action_links', 10, 2 );
+add_filter( 'plugin_action_links_'.plugin_basename( __FILE__ ), 'mcl_slidein_nav_action_links', 10, 2 );
 
 
 /* -----------------------------------------------------------
 	テキストドメイン読み込み 
 ----------------------------------------------------------- */
 function mcl_slidein_nav_textdomain() {
-	load_plugin_textdomain( 'mcl-slidein-nav', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' ); 
+	load_plugin_textdomain( 'mcl-slidein-nav', false, dirname( plugin_basename( __FILE__ ) ). '/languages' ); 
 }
 add_action( 'plugins_loaded', 'mcl_slidein_nav_textdomain' );
 
@@ -54,7 +54,7 @@ add_action( 'plugins_loaded', 'mcl_slidein_nav_textdomain' );
 ----------------------------------------------------------- */
 function mcl_slidein_nav_add_admin_menu() {
 	add_options_page(
-		__( 'Mcl slidein nav Setting', 'mcl-slidein-nav' ),
+		__( 'Mcl slidein Nav Setting', 'mcl-slidein-nav' ),
 		__( 'Mcl Slidein Nav', 'mcl-slidein-nav' ),
 		'manage_options',
 		'mcl-slidein-nav.php',
@@ -70,7 +70,7 @@ function mcl_slidein_nav_admin_css($hook) {
     if ( 'settings_page_mcl-slidein-nav' != $hook ) {
         return;
     }
-    wp_enqueue_style( 'mcl-admin-style', plugin_dir_url( __FILE__ ) . 'css/mcl-admin-style.css' );
+    wp_enqueue_style( 'mcl-admin-style', plugin_dir_url( __FILE__ ). 'css/mcl-admin-style.css' );
 }
 add_action( 'admin_enqueue_scripts', 'mcl_slidein_nav_admin_css' );
 /* -----------------------------------------------------------
@@ -96,7 +96,7 @@ function mcl_slidein_nav_option_init() {
 add_action( 'admin_init', 'mcl_slidein_nav_option_init' );
 
 /* -----------------------------------------------------------
-	デフォルト オプション値　を設定
+	デフォルトオプション値を設定
 ----------------------------------------------------------- */
 function mcl_slidein_nav_default_options() {
 	$default_options = array(
@@ -140,7 +140,7 @@ function mcl_slidein_nav_admin(){
 	    <?php // select menu ------------------------- ?>
           <tr>
             <th scope="row">
-              <label for="name">Choose menu</label>
+              <label for="name"><?php _e( 'Choose menu', 'mcl-slidein-nav' ); ?></label>
             </th>
             <td>
 	            <select id="name" name="mcl_slidein_nav_options[name]" > 
@@ -159,27 +159,25 @@ function mcl_slidein_nav_admin(){
 					endforeach;
 				endif; ?>
 				</select><br>
-				<p>Choose what you want to display menus.</p>
+				<p><?php _e( 'Choose what you want to display menus.', 'mcl-slidein-nav' ); ?></p>
 	        </td>
           </tr>
 
 		<?php // display window width ------------------------- ?>                    
           <tr>
             <th scope="row">
-            	<label for="show_width">Button's display window width</label>
+            	<label for="show_width"><?php _e( 'Button\'s display window width', 'mcl-slidein-nav' ); ?></label>
             </th>
             <td>
 	        	<input type="text" id="show_width" name="mcl_slidein_nav_options[show_width]" value="<?php if( !empty($options['show_width']) || $options['show_width'] == 0 ){ echo esc_attr( $options['show_width'] ); } ?>"/> px<br>
-	        	<p>Nav button is response displayed in window width.<br>
-		        	If you always want to display, Nothing input or input to “0”.
-	        	</p>
+	        	<p><?php _e( 'Nav button is response displayed in window width. If you always want to display, Nothing input.', 'mcl-slidein-nav' ); ?></p>
 	        </td>
           </tr>
           
           <?php // Nav slide in position ------------------------- ?>
 		  <tr>
             <th scope="row">
-            	<label for="position">Nav position</label>
+            	<label for="position"><?php _e( 'Nav position', 'mcl-slidein-nav' ); ?></label>
             </th>
             <td>
 	        	<select id="position" name="mcl_slidein_nav_options[position]" > 
@@ -197,14 +195,14 @@ function mcl_slidein_nav_admin(){
 					endforeach;
 				endif; ?>	
 	        	</select><br>
-	        	<p>Select the position to display the menu.</p>
+	        	<p><?php _e( 'Select the position to display the menu.', 'mcl-slidein-nav' ); ?></p>
 	        </td>
           </tr>
           
           <?php // Nav color ------------------------- ?>
            <tr>
             <th scope="row">
-            	<label for="position">Nav theme color</label>
+            	<label for="position"><?php _e( 'Nav theme color', 'mcl-slidein-nav' ); ?></label>
             </th>
             <td>
 	        	<select id="position" name="mcl_slidein_nav_options[nav_color]" > 
@@ -222,35 +220,32 @@ function mcl_slidein_nav_admin(){
 					endforeach;
 				endif; ?>	
 	        	</select><br>
-	        	<p>Select the menu theme color, white or dark.</p>
+	        	<p><?php _e( 'Select the menu theme color, white or dark.', 'mcl-slidein-nav' ); ?></p>
 	        </td>
           </tr>
           
 		  <?php // Nav botton position top ------------------------- ?>
 	        <tr>
             <th scope="row">
-            	<label for="position_top">Nav button position top</label>
+            	<label for="position_top"><?php _e( 'Nav button position top', 'mcl-slidein-nav' ); ?></label>
             </th>
             <td>
 	        	<input type="text" id="position_top" name="mcl_slidein_nav_options[position_top]" value="<?php if( !empty($options['position_top']) ){ echo esc_attr( $options['position_top'] ); } ?>"/> px<br>
-	        	<p>Input of Nav button's position from window top.
-	        	</p>
+	        	<p><?php _e( 'Input of Nav button\'s position from window top.', 'mcl-slidein-nav' ); ?></p>
 	        </td>
           </tr>
 
 			<?php // Nav botton position top ------------------------- ?>          
           <tr>
             <th scope="row">
-            	<label for="position_side">Nav button position side</label>
+            	<label for="position_side"><?php _e( 'Nav button position side', 'mcl-slidein-nav' ); ?></label>
             </th>
             <td>
 	        	<input type="text" id="position_side" name="mcl_slidein_nav_options[position_side]" value="<?php if( !empty($options['position_side']) ){ echo esc_attr( $options['position_side'] ); } ?>"/> px<br>
-	        	<p>Input of Nav button's position from window side.
-	        	</p>
+	        	<p><?php _e( 'Input of Nav button\'s position from window side.', 'mcl-slidein-nav' ); ?></p>
 	        </td>
           </tr>
                     
-          
         </tbody>
       </table>
       <?php submit_button(); ?>
@@ -325,6 +320,8 @@ function mcl_slidein_nav_func(){
 				
 		<div id="mcl_slidein_nav" class="mcl_nav_wrap <?php echo $options['position'] ?>">
 		<button id="mcl_slidein_nav_btn" class="mcl_nav_btn">
+			<span class="btn_border"></span>
+			<span class="btn_border middle"></span>
 			<span class="btn_border"></span>
 		</button>
 		<ul id="mcl_slidein_nav_list" class="mcl_nav_list">

@@ -6,10 +6,7 @@
 	border: solid 1px #333;
 	background-color: #fff;
 	.btn_border{
-		background: #333;
-		&:before, &:after{
-			background: #333;
-		}
+		border-top: solid 2px #333;
 	}
 }
 
@@ -18,9 +15,12 @@
 /*-------------------------------------- */
 .mcl_nav_list{
     background: #fff;
-    box-shadow: 1px 0 40px rgba(000, 000, 000, 0.2);
+    box-shadow: -1px 0 40px rgba(000, 000, 000, 0.2), 1px 0 40px rgba(000, 000, 000, 0.2);
     a{
 	    color: #333;
+	    &:hover{
+		    color: #ccc;
+	    }
     }
     & > li + li{
 		border-top: solid 1px #eee;  
@@ -32,9 +32,3 @@
     }
 }
 
-/*----------------------------------------
-	layer style 
-/*-------------------------------------- */
-.mcl_nav_layer{
-	background-color: #000;
-}
