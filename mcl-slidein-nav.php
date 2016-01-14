@@ -99,7 +99,7 @@ add_action( 'admin_init', 'mcl_slidein_nav_option_init' );
 	デフォルトオプション値を設定
 ----------------------------------------------------------- */
 function mcl_slidein_nav_default_options() {
-	$default_options = array(
+	return array(
 		'name'      => '',
 		'show_width' => 0,
 		'position'  => 'left',
