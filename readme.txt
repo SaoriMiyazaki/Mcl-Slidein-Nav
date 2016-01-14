@@ -30,5 +30,8 @@ Documentation & Demo: http://memocarilog.info/wordpress/8206
 
 == ChangeLog ==
 
+= 1.0.1 =
+* Default options bug fix
+
 = 1.0.0 =
 * First release. 
