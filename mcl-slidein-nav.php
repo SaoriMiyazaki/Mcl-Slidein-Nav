@@ -101,7 +101,7 @@ add_action( 'admin_init', 'mcl_slidein_nav_option_init' );
 function mcl_slidein_nav_default_options() {
 	return array(
 		'name'      => '',
-		'show_width' => 0,
+		'show_width' => '',
 		'position'  => 'left',
 		'nav_color'  => 'white',
 		'position_top' => 40,
