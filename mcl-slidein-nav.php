@@ -1,7 +1,7 @@
 <?php
 /* --------------------------------------------------------------
 Plugin Name: Mcl slidein nav
-Plugin URI: http://memocarilog.info/
+Plugin URI: http://memocarilog.info/wordpress/8206
 Description: This Plugin will make with Custom menu Slidein nav 
 Text Domain: mcl-slidein-nav
 Domain Path: /languages
@@ -73,6 +73,7 @@ function mcl_slidein_nav_admin_css($hook) {
     wp_enqueue_style( 'mcl-admin-style', plugin_dir_url( __FILE__ ). 'css/mcl-admin-style.css' );
 }
 add_action( 'admin_enqueue_scripts', 'mcl_slidein_nav_admin_css' );
+
 /* -----------------------------------------------------------
 	アンインストール時のオプションデータ削除 
 ----------------------------------------------------------- */
@@ -100,9 +101,10 @@ add_action( 'admin_init', 'mcl_slidein_nav_option_init' );
 ----------------------------------------------------------- */
 function mcl_slidein_nav_default_options() {
 	return array(
-		'name'      => '',
+		'name'		 => '',
 		'show_width' => '',
-		'position'  => 'left',
+		'push_body'  => 0,
+		'position'   => 'left',
 		'nav_color'  => 'white',
 		'position_top' => 40,
 		'position_side' => 40,
@@ -173,6 +175,23 @@ function mcl_slidein_nav_admin(){
 	        	<p><?php _e( 'Nav button is response displayed in window width. If you always want to display, Nothing input.', 'mcl-slidein-nav' ); ?></p>
 	        </td>
           </tr>
+        
+        <?php
+	        var_dump($options);
+	        ?>
+        <?php // push_body ------------------------- ?>
+		  <tr>
+            <th scope="row">
+            	<label for="push_body"><?php _e( 'Body push', 'mcl-slidein-nav' ); ?></label>
+            </th>
+            <td>
+	            <input type="checkbox" id="body_push" name="mcl_slidein_nav_options[push_body]" value="1" 
+	            <?php if( !empty($options['push_body']) ){ echo 'checked'; } ?>>
+	            <br>
+	        	<p><?php _e( 'Body push slide in menu.', 'mcl-slidein-nav' ); ?></p>
+	        </td>
+          </tr>
+        
           
           <?php // Nav slide in position ------------------------- ?>
 		  <tr>
@@ -272,6 +291,7 @@ function mcl_slidein_nav_scripts(){
 	
 	wp_enqueue_script('mcl_slidein_nav_js', plugins_url( '/js/function.js', __FILE__ ), array( 'jquery' ));	
 	$mcl_nav_options = array(
+		'push_body' => $options['push_body'],
 		'position' => $options['position'],
 		'position_top' => $options['position_top'],
 		'position_side' => $options['position_side'],
