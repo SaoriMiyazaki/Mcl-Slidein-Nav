@@ -45,6 +45,7 @@ body.open{
 
 // botton style for open
 body.open{
+	position: fixed;
 .mcl_nav_btn{
 	.btn_border.middle{
 		visibility: hidden;
@@ -79,6 +80,7 @@ body.open{
     height: 100%;
     box-shadow: 1px 0 40px rgba(000, 000, 000, 0.2);
     margin: 0;
+    overflow: auto;
     li{
 		list-style: none;
     }

@@ -5,7 +5,7 @@ Plugin URI: http://memocarilog.info/wordpress/8206
 Description: This Plugin will make with Custom menu Slidein nav 
 Text Domain: mcl-slidein-nav
 Domain Path: /languages
-Version: 1.0.1
+Version: 1.0.2
 Author: Saori Miyazaki
 Author URI: http://memocarilog.info/
 License: GPL2
@@ -273,6 +273,12 @@ function mcl_slidein_nav_admin(){
 	</div>
 	</div>
 <?php
+	
+	 $options_ =  get_theme_mod('position_top_value');
+	 $options_2 =get_option( "theme_mods_twentysixteen" );
+var_dump( $options_2 );
+
+	
 } 
 
 /* -----------------------------------------------------------
@@ -358,4 +364,39 @@ function mcl_slidein_nav_func(){
 	<?php 
 	} 
 }  
+//$options['position_top']
+define('POSITION_TOP', 'position_top'); //セクションIDの定数化
+define('POSITION_TOP_VALUE', 'position_top_value'); //セッティングIDの定数化
 
+function themename_theme_customizer( $wp_customize ) {
+ $wp_customize->add_section( POSITION_TOP , array(
+ 'title' => 'メニューの位置', //セクション名
+ 'priority' => 100, //カスタマイザー項目の表示順
+ 'description' => 'メニューのトップからの位置', //セクションの説明
+ ) );
+ 
+$wp_customize->add_setting( POSITION_TOP_VALUE ); 
+$wp_customize->add_control( POSITION_TOP_VALUE, array(
+    'settings' => POSITION_TOP_VALUE,
+    'label' =>'テストテキストフィールド',
+    'section' => POSITION_TOP,
+    'type' => 'text',
+));
+/*
+ $wp_customize->add_setting( POSITION_TOP_VALUE );
+ $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, POSITION_TOP_VALUE, array(
+ 'label' => 'ロゴ', //設定ラベル
+ 'section' => POSITION_TOP, //セクションID
+ 'settings' => POSITION_TOP_VALUE, //セッティングID
+ 'description' => '画像をアップロードするとヘッダーにあるデフォルトのサイト名と入れ替わります。',
+ ) ) );
+*/
+}
+add_action( 'customize_register', 'themename_theme_customizer' );//カスタマイザーに登録
+ 
+//ロゴイメージURLの取得
+/*
+function get_the_logo_image_url(){
+ return esc_url( get_theme_mod( POSITION_TOP_VALUE ) );
+}
+*/
