@@ -3,10 +3,10 @@
 Contributors: SaoriMiyazaki
 Tags: Menu, Navigation, Resposive, Resposive menu, Resposive navigation, jquery
 Requires at least: 4.3
-Tested up to: 4.4
+Tested up to: 4.6.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 
 == Description ==
 
@@ -30,6 +30,9 @@ Documentation & Demo: http://memocarilog.info/wordpress/8206
 
 
 == ChangeLog ==
+
+= 1.0.3 =
+* Update CSS
 
 = 1.0.2 =
 * Default options change
