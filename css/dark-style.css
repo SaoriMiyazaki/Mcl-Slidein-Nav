@@ -21,7 +21,7 @@ body.open .mcl_nav_btn .btn_border:last-child { position: absolute; top: 12px; -
 /*----------------------------------------
 	nav list style 
 /*-------------------------------------- */
-.mcl_nav_list { position: fixed; top: 0; z-index: 99999; display: none; padding-top: 15px; width: 250px; height: 100%; box-shadow: 1px 0 40px rgba(0, 0, 0, 0.2); margin: 0; overflow: auto; }
+.mcl_nav_list { position: fixed; top: 0; z-index: 99999; display: none; padding: 15px 0; width: 250px; height: 100%; box-shadow: 1px 0 40px rgba(0, 0, 0, 0.2); margin: 0; overflow: auto; }
 .mcl_nav_list li { list-style: none; }
 .mcl_nav_list a { display: block; font-size: 100%; text-decoration: none; }
 .mcl_nav_list a:hover { text-decoration: none; }
