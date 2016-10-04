@@ -75,7 +75,7 @@ body.open{
     top: 0;
     z-index: 99999;
     display: none;
-	padding: 15px 0;
+	padding: 15px 0 0;
     width: 250px;
     height: 100%;
     box-shadow: 1px 0 40px rgba(000, 000, 000, 0.2);
@@ -83,6 +83,9 @@ body.open{
     overflow: auto;
     li{
 		list-style: none;
+    }
+    li:last-child a{
+	    padding: 0 0 2em;
     }
     a{
 	    display: block;
