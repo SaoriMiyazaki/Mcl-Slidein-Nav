@@ -6,7 +6,7 @@ Requires at least: 4.3
 Tested up to: 4.6.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 
 == Description ==
 
@@ -30,6 +30,9 @@ Documentation & Demo: http://memocarilog.info/wordpress/8206
 
 
 == ChangeLog ==
+
+= 1.0.4 =
+* notice error bug fix
 
 = 1.0.3 =
 * Update CSS

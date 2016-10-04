@@ -5,7 +5,7 @@ Plugin URI: http://memocarilog.info/wordpress/8206
 Description: This Plugin will make with Custom menu Slidein nav 
 Text Domain: mcl-slidein-nav
 Domain Path: /languages
-Version: 1.0.3
+Version: 1.0.4
 Author: Saori Miyazaki
 Author URI: http://memocarilog.info/
 License: GPL2
@@ -301,7 +301,7 @@ function mcl_slidein_nav_scripts(){
 	
 	wp_enqueue_script('mcl_slidein_nav_js', plugins_url( '/js/function.js', __FILE__ ), array( 'jquery' ));	
 	$mcl_nav_options = array(
-		'push_body' => $options['push_body'],
+		//'push_body' => $options['push_body'],
 		'position' => $options['position'],
 		'position_top' => $options['position_top'],
 		'position_side' => $options['position_side'],
