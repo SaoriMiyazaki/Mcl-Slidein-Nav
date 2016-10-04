@@ -177,9 +177,10 @@ function mcl_slidein_nav_admin(){
           </tr>
         
         <?php
-	        var_dump($options);
+	        // var_dump($options);
 	        ?>
         <?php // push_body ------------------------- ?>
+<!--
 		  <tr>
             <th scope="row">
             	<label for="push_body"><?php _e( 'Body push', 'mcl-slidein-nav' ); ?></label>
@@ -191,6 +192,7 @@ function mcl_slidein_nav_admin(){
 	        	<p><?php _e( 'Body push slide in menu.', 'mcl-slidein-nav' ); ?></p>
 	        </td>
           </tr>
+-->
         
           
           <?php // Nav slide in position ------------------------- ?>
@@ -275,8 +277,10 @@ function mcl_slidein_nav_admin(){
 <?php
 	
 	 $options_ =  get_theme_mod('position_top_value');
+/*
 	 $options_2 =get_option( "theme_mods_twentysixteen" );
 var_dump( $options_2 );
+*/
 
 	
 } 
