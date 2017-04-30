@@ -17,7 +17,7 @@ var $menu       = $( '#mcl_slidein_nav_list' ),
     
     $menuBtn
     .css( menuPos , menuPosSide + 'px')
-	.css( 'top' , menuPosTop + 'px');
+    .css( 'top' , menuPosTop + 'px');
 	
     $menuBtn.on( 'click', function(){
     	$body.toggleClass( 'open' );
@@ -31,6 +31,14 @@ var $menu       = $( '#mcl_slidein_nav_list' ),
     $layer.on('click', function(){
         menu_close();
         $body.removeClass( 'open' );
+    });
+    
+    $menu.find('a').on('click', function(){
+      var page_in_link = $(this).attr('href').match(/^#/g);
+      if( page_in_link || page_in_link == null ){
+        menu_close();
+        $body.removeClass( 'open' );
+      }
     });
     
     // nav open func -------------
@@ -48,21 +56,21 @@ var $menu       = $( '#mcl_slidein_nav_list' ),
     }    
     
     // nav close func -------------
-	function menu_close(){
-		
-		if( menuPos == 'left' ){
-			$menu.animate( { 'left' : -menuWidth }, 300, function(){ 
-				$([$menu[0],$layer[0]]).fadeOut( 200 );
-			});
-			$menuBtn.animate( { 'left' : menuPosSide }, 300 );
-		}
-		else if( menuPos == 'right' ){
-		    $menu.animate( { 'right' : -menuWidth }, 300, function(){ 
-			    $([$menu[0],$layer[0]]).fadeOut( 200 );
-			});
-			$menuBtn.animate( { 'right' : menuPosSide }, 300 );
-	    }
-	}
+  	function menu_close(){
+  		
+  		if( menuPos == 'left' ){
+  			$menu.animate( { 'left' : -menuWidth }, 300, function(){ 
+  				$([$menu[0],$layer[0]]).fadeOut( 200 );
+  			});
+  			$menuBtn.animate( { 'left' : menuPosSide }, 300 );
+  		}
+  		else if( menuPos == 'right' ){
+  		    $menu.animate( { 'right' : -menuWidth }, 300, function(){ 
+  			    $([$menu[0],$layer[0]]).fadeOut( 200 );
+  			});
+  			$menuBtn.animate( { 'right' : menuPosSide }, 300 );
+  	  }
+  	}
  
 });   
 })(jQuery);
